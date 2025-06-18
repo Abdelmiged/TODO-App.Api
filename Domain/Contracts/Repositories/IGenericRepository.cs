@@ -9,9 +9,10 @@ namespace Domain.Contracts.Repositories
 {
     public interface IGenericRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
-        public Task<IEnumerable<TEntity>> GetAllAsync();
-        public Task<int> AddAsync(TEntity entity);
-        public Task<int> UpdateAsync(Guid id);
-        public Task<int> DeleteAsync(Guid id);
+        public TEntity? GetEntity(TKey id);
+        public IEnumerable<TEntity>? GetAllAsync();
+        public int AddAsync(TEntity entity);
+        public int UpdateAsync(TEntity entity);
+        public int DeleteAsync(TEntity entity);
     }
 }
