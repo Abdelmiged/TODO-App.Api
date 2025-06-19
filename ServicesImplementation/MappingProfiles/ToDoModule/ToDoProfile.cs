@@ -24,7 +24,8 @@ namespace ServicesImplementation.MappingProfiles.ToDoModule
 
             CreateMap<UpdatedToDoDto, ToDo>()
                 .ForMember(TDE => TDE.Status, options => options.MapFrom(UTD => StringToEnumValueConverter<Status>.ConvertStringToEnum(UTD.Status)))
-                .ForMember(TDE => TDE.Priority, options => options.MapFrom(UTD => StringToEnumValueConverter<Priority>.ConvertStringToEnum(UTD.Priority)));
+                .ForMember(TDE => TDE.Priority, options => options.MapFrom(UTD => StringToEnumValueConverter<Priority>.ConvertStringToEnum(UTD.Priority)))
+                .ForMember(TDE => TDE.LastModifiedDate, options => options.MapFrom(O => DateTime.Now));
         }
     }
 }

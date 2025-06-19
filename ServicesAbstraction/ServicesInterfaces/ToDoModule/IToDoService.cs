@@ -9,9 +9,9 @@ namespace ServicesAbstraction.ServicesInterfaces.ToDoModule
 {
     public interface IToDoService
     {
-        public IEnumerable<ToDoDto> GetAll();
+        public List<ToDoDto> GetAll();
         public void Add(NewToDoDto newToDoDto);
         public void Remove(Guid id);
-        public void Update(Guid id, UpdatedToDoDto updatedToDoDto);
+        public void Update(UpdatedToDoDto updatedToDoDto);
     }
 }
