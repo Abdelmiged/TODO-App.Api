@@ -12,19 +12,19 @@ namespace Persistence.Repositories
 {
     public class GenericRepository<TEntity, TKey>(StoreDbContext _storeDbContext) : IGenericRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
-        public int AddAsync(TEntity entity)
+        public int Add(TEntity entity)
         {
             _storeDbContext.Set<TEntity>().Add(entity);
             return _storeDbContext.SaveChanges();
         }
 
-        public int DeleteAsync(TEntity entity)
+        public int Delete(TEntity entity)
         {
             _storeDbContext.Set<TEntity>().Remove(entity);
             return _storeDbContext.SaveChanges();
         }
 
-        public IEnumerable<TEntity>? GetAllAsync()
+        public IEnumerable<TEntity>? GetAll()
         {
             var entityList = (IEnumerable<TEntity>)_storeDbContext.Set<TEntity>();
             return entityList;
@@ -36,7 +36,7 @@ namespace Persistence.Repositories
             return entity;
         }
 
-        public int UpdateAsync(TEntity entity)
+        public int Update(TEntity entity)
         {
             _storeDbContext.Set<TEntity>().Update(entity);
             return _storeDbContext.SaveChanges();

@@ -1,6 +1,13 @@
 
+using AutoMapper;
+using Domain.Contracts.Repositories;
+using Domain.Contracts.Repositories.ToDoModule;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data.Contexts;
+using Persistence.Repositories;
+using Persistence.Repositories.ToDoModule;
+using ServicesImplementation.MappingProfiles.ToDoModule;
 
 namespace TODO_App.Api
 {
@@ -22,6 +29,9 @@ namespace TODO_App.Api
                 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+
+            builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
+            builder.Services.AddAutoMapper(M => M.AddProfiles(new List<Profile> { new ToDoProfile()}));
 
             var app = builder.Build();
 
