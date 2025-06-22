@@ -7,7 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Persistence.Data.Contexts;
 using Persistence.Repositories;
 using Persistence.Repositories.ToDoModule;
+using ServicesAbstraction.ServicesInterfaces.ToDoModule;
 using ServicesImplementation.MappingProfiles.ToDoModule;
+using ServicesImplementation.Services.ToDoModule;
+using TODO_App.Api.Middlewares;
 
 namespace TODO_App.Api
 {
@@ -32,6 +35,7 @@ namespace TODO_App.Api
 
             builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
             builder.Services.AddAutoMapper(M => M.AddProfiles(new List<Profile> { new ToDoProfile()}));
+            builder.Services.AddScoped<IToDoService, ToDoService>();
 
             var app = builder.Build();
 
@@ -46,8 +50,9 @@ namespace TODO_App.Api
 
             app.UseAuthorization();
 
-
             app.MapControllers();
+
+            app.UseMiddleware<CatchAllUnknownRouteHandlerMiddleware>();
 
             app.Run();
         }

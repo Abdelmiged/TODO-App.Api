@@ -10,7 +10,6 @@ namespace Shared.DTOs.ToDoModule
 {
     public class UpdatedToDoDto
     {
-        public Guid Id { get; set; }
         [Required]
         [MaxLength(100)]
         public string Title { get; set; }

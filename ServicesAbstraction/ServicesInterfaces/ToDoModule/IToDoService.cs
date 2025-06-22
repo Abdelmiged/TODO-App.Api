@@ -12,6 +12,6 @@ namespace ServicesAbstraction.ServicesInterfaces.ToDoModule
         public List<ToDoDto> GetAll();
         public void Add(NewToDoDto newToDoDto);
         public void Remove(Guid id);
-        public void Update(UpdatedToDoDto updatedToDoDto);
+        public void Update(Guid id, UpdatedToDoDto updatedToDoDto);
     }
 }

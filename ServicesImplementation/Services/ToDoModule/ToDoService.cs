@@ -4,6 +4,7 @@ using Domain.Contracts.Repositories.ToDoModule;
 using Domain.Models;
 using ServicesAbstraction.ServicesInterfaces.ToDoModule;
 using Shared.DTOs.ToDoModule;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,14 +52,19 @@ namespace ServicesImplementation.Services.ToDoModule
                 throw new Exception("Couldn't remove TODO");
         }
 
-        public void Update(UpdatedToDoDto updatedToDoDto)
+        public void Update(Guid id, UpdatedToDoDto updatedToDoDto)
         {
-            var todoEntity = _toDoRepository.GetEntity(updatedToDoDto.Id);
+            var todoEntity = _toDoRepository.GetEntity(id);
 
             if(todoEntity is null)
-                throw new ArgumentNullException($"No TODO with Id = {updatedToDoDto.Id} is found");
+                throw new ArgumentNullException($"No TODO with Id = {id} is found");
 
-            todoEntity = _mapper.Map<UpdatedToDoDto, ToDo>(updatedToDoDto);
+            //todoEntity = _mapper.Map<UpdatedToDoDto, ToDo>(updatedToDoDto);
+            todoEntity.Title = updatedToDoDto.Title;
+            todoEntity.Description = updatedToDoDto.Description;
+            todoEntity.Status = StringToEnumValueConverter<Status>.ConvertStringToEnum(updatedToDoDto.Status);
+            todoEntity.Priority = StringToEnumValueConverter<Priority>.ConvertStringToEnum(updatedToDoDto.Priority);
+            todoEntity.DueDate = updatedToDoDto.DueDate;
 
             var result = _toDoRepository.Update(todoEntity);
 
