@@ -1,5 +1,5 @@
 ﻿using Domain.Exceptions.ToDoModule;
-using Shared.ErrorResponse;
+using Shared.Response.ErrorResponse;
 
 namespace TODO_App.Api.Middlewares
 {

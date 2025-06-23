@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shared.ErrorResponse
+namespace Shared.Response.ErrorResponse
 {
     public class ExceptionResponse
     {

@@ -1,10 +1,12 @@
 
 using AutoMapper;
+using Domain.Contracts.DataSeeding;
 using Domain.Contracts.Repositories;
 using Domain.Contracts.Repositories.ToDoModule;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data.Contexts;
+using Persistence.DataSeeding;
 using Persistence.Repositories;
 using Persistence.Repositories.ToDoModule;
 using ServicesAbstraction.ServicesInterfaces.ToDoModule;
@@ -36,12 +38,19 @@ namespace TODO_App.Api
             builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
             builder.Services.AddAutoMapper(M => M.AddProfiles(new List<Profile> { new ToDoProfile()}));
             builder.Services.AddScoped<IToDoService, ToDoService>();
+            builder.Services.AddScoped<IDataSeeding, DataSeeding>();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                using (var scope = app.Services.CreateScope())
+                {
+                    var dataSeeding = scope.ServiceProvider.GetService<IDataSeeding>();
+                    dataSeeding.Seed();
+                }
+
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
