@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Contracts.Repositories;
 using Domain.Contracts.Repositories.ToDoModule;
+using Domain.Exceptions.ToDoModule;
 using Domain.Models;
 using ServicesAbstraction.ServicesInterfaces.ToDoModule;
 using Shared.DTOs.ToDoModule;
@@ -24,7 +25,7 @@ namespace ServicesImplementation.Services.ToDoModule
             var result = _toDoRepository.Add(newToDo);
 
             if (result == 0)
-                throw new Exception("Couldn't add a new TODO");
+                throw new ToDoAddException("Couldn't Create a new TODO");
         }
 
         public List<ToDoDto> GetAll()
@@ -49,7 +50,7 @@ namespace ServicesImplementation.Services.ToDoModule
             var result = _toDoRepository.Delete(todoEntity);
 
             if (result == 0)
-                throw new Exception("Couldn't remove TODO");
+                throw new ToDoDeleteException($"Couldn't remove TODO with Id = {id}");
         }
 
         public void Update(Guid id, UpdatedToDoDto updatedToDoDto)
@@ -69,7 +70,7 @@ namespace ServicesImplementation.Services.ToDoModule
             var result = _toDoRepository.Update(todoEntity);
 
             if (result == 0)
-                throw new Exception("Couldn't update TODO");
+                throw new ToDoUpdateException($"Couldn't update TODO with Id = {id}");
         }
     }
 }

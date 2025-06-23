@@ -53,6 +53,7 @@ namespace TODO_App.Api
             app.MapControllers();
 
             app.UseMiddleware<CatchAllUnknownRouteHandlerMiddleware>();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.Run();
         }
